@@ -58,13 +58,19 @@ namespace MyCar_Creation.Controllers
             }
             return NotFound();
         }
-        [HttpPut]
-        public ActionResult UpdateCategory([FromRoute] Guid categoryId, CategoryDTO model)
+        [HttpPut("{categoryId}")]
+        public ActionResult UpdateCategory([FromRoute] string categoryId, CategoryDTO model)
         {
-            Category category = _context.Categories.Find(categoryId);
+            Category category = _context.Categories.Find(Guid.Parse(categoryId) );
             if (category is not null)
             {
-                return Ok(category);
+                category.CategoryDescription = model.CategoryDescription;
+                category.CategoryName = model.CategoryName;
+                if(_context.SaveChanges() > 0)
+                {
+                    return Ok(model);
+                }
+            
             }
             return NotFound();
         }   

@@ -31,8 +31,10 @@ namespace MyCar_Creation.Controllers
                 Price = model.Price,
                 Description = model.Description,
                 CategoryId = model.CategoryId,
-            };//Maplemek
-            _context.Vehicles.Add(vehicle);
+            };
+            //Maplemek
+             _context.Vehicles.Add(vehicle);
+
             if (_context.SaveChanges() > 0)
             {
                 return Ok();
@@ -40,13 +42,13 @@ namespace MyCar_Creation.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("{VehicleId}")]
-        public ActionResult DeleteVehicle([FromRoute] Guid VehicleId)
+        [HttpDelete("{vehicleId}")]
+        public ActionResult DeleteVehicle([FromRoute] Guid vehicleId)
         {
-            Vehicle Vehicle = _context.Vehicles.Find(VehicleId);
-            if (Vehicle is not null)
+            Vehicle vehicle = _context.Vehicles.Find(vehicleId);
+            if (vehicle is not null)
             {
-                _context.Vehicles.Remove(Vehicle);
+                _context.Vehicles.Remove(vehicle);
                 if (_context.SaveChanges() > 0)
                 {
                     return Ok();
@@ -54,35 +56,51 @@ namespace MyCar_Creation.Controllers
             }
             return BadRequest();
         }
+
+
+
         [HttpGet]
         public ActionResult GetAllVehicle()
         {
-            List<Vehicle> Vehicles = _context.Vehicles.ToList();
-            if (Vehicles is not null)
+            List<Vehicle> categories = _context.Vehicles.ToList();
+            if (categories is not null)
             {
-                return Ok(Vehicles);
+                return Ok(categories);
             }
             return NotFound();
         }
-        [HttpPut]
-        public ActionResult UpdateVehicle([FromRoute] Guid VehicleId, VehicleDTO model)
+
+
+
+        [HttpPut("{vehicleId}")]
+        public ActionResult UpdateVehicle([FromRoute] Guid vehicleId, VehicleDTO model)
         {
-            Vehicle Vehicle = _context.Vehicles.Find(VehicleId);
-            if (Vehicle is not null)
+            Vehicle vehicle = _context.Vehicles.Find(vehicleId);
+            if (vehicle is not null)
             {
-                return Ok(Vehicle);
+                vehicle.Price = model.Price;
+                vehicle.Description = model.Description;
+                vehicle.CategoryId = model.CategoryId;
+                vehicle.Brand = model.Brand;
+                vehicle.Model = model.Model;
+                vehicle.ModelYear = model.ModelYear;
+                if (_context.SaveChanges() > 0)
+                {
+                    return Ok(model);
+                }
+
             }
             return NotFound();
         }
 
 
         [HttpGet("{vehicleId}")]
-        public ActionResult GetVehiclyById(Guid vehicleId)
-        { 
+        public ActionResult GetVehicleById([FromRoute] Guid vehicleId)
+        {
             Vehicle vehicle = _context.Vehicles.Find(vehicleId);
             if (vehicle is not null)
             {
-                return Ok(vehicle); 
+                return Ok(vehicle);
             }
             return NotFound();
 
@@ -99,7 +117,7 @@ namespace MyCar_Creation.Controllers
                 return Ok(vehicles);
             }
             return NotFound();
-            
+
 
         }
     }
