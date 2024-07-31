@@ -1,5 +1,6 @@
 ﻿using MyCar_Creation.Model;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MyCar_Creation.Entities
 {
@@ -14,6 +15,7 @@ namespace MyCar_Creation.Entities
         public string Description { get; set; }
 
         public Guid CategoryId { get; set; }
+        [JsonIgnore]
         public Category  Category { get; set; }
     }
 }

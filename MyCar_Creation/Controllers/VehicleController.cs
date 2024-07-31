@@ -19,7 +19,7 @@ namespace MyCar_Creation.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("CreateVehicle")]
         public ActionResult CreateVehicle(VehicleDTO model)
         {
 
@@ -42,7 +42,7 @@ namespace MyCar_Creation.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("{vehicleId}")]
+        [HttpDelete("DeleteVehicle/{vehicleId}")]
         public ActionResult DeleteVehicle([FromRoute] Guid vehicleId)
         {
             Vehicle vehicle = _context.Vehicles.Find(vehicleId);
@@ -59,7 +59,7 @@ namespace MyCar_Creation.Controllers
 
 
 
-        [HttpGet]
+        [HttpGet("GetAllVehicle")]
         public ActionResult GetAllVehicle()
         {
             List<Vehicle> categories = _context.Vehicles.ToList();
@@ -72,7 +72,7 @@ namespace MyCar_Creation.Controllers
 
 
 
-        [HttpPut("{vehicleId}")]
+        [HttpPut("UpdateVehicle/{vehicleId}")]
         public ActionResult UpdateVehicle([FromRoute] Guid vehicleId, VehicleDTO model)
         {
             Vehicle vehicle = _context.Vehicles.Find(vehicleId);
@@ -94,7 +94,7 @@ namespace MyCar_Creation.Controllers
         }
 
 
-        [HttpGet("{vehicleId}")]
+        [HttpGet("Vehicle/{vehicleId}")]
         public ActionResult GetVehicleById([FromRoute] Guid vehicleId)
         {
             Vehicle vehicle = _context.Vehicles.Find(vehicleId);
@@ -108,17 +108,17 @@ namespace MyCar_Creation.Controllers
 
 
 
-        [HttpGet("{categoryId}")]
-        public ActionResult GetVehicleByCategoryId([FromRoute] Guid categoryId)
-        {
-            List<Vehicle> vehicles = _context.Vehicles.Where(x => x.CategoryId == categoryId).ToList();
-            if (vehicles is not null)
-            {
-                return Ok(vehicles);
-            }
-            return NotFound();
+        //[HttpGet("GetVehicleByCategoryId/{categoryId}")]
+        //public ActionResult GetVehicleByCategoryId([FromRoute] Guid categoryId)
+        //{
+        //    List<Vehicle> vehicles = _context.Vehicles.Where(x => x.CategoryId == categoryId).ToList();
+        //    if (vehicles is not null)
+        //    {
+        //        return Ok(vehicles);
+        //    }
+        //    return NotFound();
 
 
-        }
+        //}
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyCar_Creation.Context;
 using MyCar_Creation.Dtos;
 using MyCar_Creation.Entities;
@@ -73,7 +74,21 @@ namespace MyCar_Creation.Controllers
             
             }
             return NotFound();
-        }   
+        }
+
+        [HttpGet("GetVehicles/{categoryId}")]
+
+        public ActionResult GetVehiclesByCategoryId([FromRoute] string categoryId)
+        { 
+            var result =_context.Categories.Include(X=> X.Vehicles).FirstOrDefault(x =>x.Id == Guid.Parse(categoryId));
+            if(result is not null) 
+            {
+                return Ok(result);
+            }
+            return BadRequest();
+        
+        }
+
 
     }
 }
