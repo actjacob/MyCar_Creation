@@ -62,7 +62,7 @@ namespace MyCar_Creation.Controllers
         [HttpPut("{categoryId}")]
         public ActionResult UpdateCategory([FromRoute] string categoryId, CategoryDTO model)
         {
-            Category category = _context.Categories.Find(Guid.Parse(categoryId) );
+            Category category = _context.Categories.Find(Guid.Parse(categoryId));
             if (category is not null)
             {
                 category.CategoryDescription = model.CategoryDescription;
@@ -79,8 +79,8 @@ namespace MyCar_Creation.Controllers
         [HttpGet("GetVehicles/{categoryId}")]
 
         public ActionResult GetVehiclesByCategoryId([FromRoute] string categoryId)
-        { 
-            var result =_context.Categories.Include(X=> X.Vehicles).FirstOrDefault(x =>x.Id == Guid.Parse(categoryId));
+        {
+            var result = _context.Categories.Include(x => x.Vehicles).FirstOrDefault(x => x.Id == Guid.Parse(categoryId));
             if(result is not null) 
             {
                 return Ok(result);
