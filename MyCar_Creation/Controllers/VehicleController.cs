@@ -29,7 +29,6 @@ namespace MyCar_Creation.Controllers
                 Model = model.Model,
                 ModelYear = model.ModelYear,
                 Price = model.Price,
-                ImageUrl=model.ImageUrl,
                 Description = model.Description,
                 CategoryId = model.CategoryId,
             };
