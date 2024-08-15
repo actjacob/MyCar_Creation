@@ -22,15 +22,22 @@ namespace MyCar_Creation.Controllers
         [HttpPost("CreateVehicle")]
         public ActionResult CreateVehicle(VehicleDTO model)
         {
+            //if (string.IsNullOrEmpty(model.ImageUrl) || model.ImageUrl.Equals("string", StringComparison.OrdinalIgnoreCase)) burda da imgurl değeri "string"ise demek istiyor
+            if (string.IsNullOrEmpty(model.ImageUrl))
+            {
+               model.ImageUrl = "https://www.carscoops.com/wp-content/uploads/2022/11/BMW-M5-1m.jpg"; // Varsayılan değer
+            }
 
             Vehicle vehicle = new()
             {
                 Brand = model.Brand,
                 Model = model.Model,
                 ModelYear = model.ModelYear,
+                ImageUrl = model.ImageUrl,
                 Price = model.Price,
                 Description = model.Description,
                 CategoryId = model.CategoryId,
+                
             };
             //Maplemek
              _context.Vehicles.Add(vehicle);
@@ -80,8 +87,8 @@ namespace MyCar_Creation.Controllers
             {
                 vehicle.Price = model.Price;
                 vehicle.Description = model.Description;
-                vehicle.CategoryId = model.CategoryId; 
-                vehicle.ImageUrl=model.ImageUrl;
+                vehicle.CategoryId = model.CategoryId;
+                vehicle.ImageUrl = string.IsNullOrEmpty(model.ImageUrl) ? vehicle.ImageUrl : model.ImageUrl; // Eski değeri koru eğer yeni değer boşsa
                 vehicle.Brand = model.Brand;
                 vehicle.Model = model.Model;
                 vehicle.ModelYear = model.ModelYear;

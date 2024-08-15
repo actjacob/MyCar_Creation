@@ -12,5 +12,7 @@ namespace MyCar_Creation.Context
         public DbSet <Category> Categories { get; set; }
 
         public DbSet <Vehicle> Vehicles { get; set; }
+        public DbSet <User> Users { get; set; }
     }
 }
+ 
