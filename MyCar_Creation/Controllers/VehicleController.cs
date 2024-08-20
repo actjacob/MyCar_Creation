@@ -46,7 +46,7 @@ namespace MyCar_Creation.Controllers
             {
                 return Ok();
             }
-            return BadRequest();
+            return NotFound();
         }
 
         [HttpDelete("DeleteVehicle/{vehicleId}")]
@@ -61,7 +61,7 @@ namespace MyCar_Creation.Controllers
                     return Ok();
                 }
             }
-            return BadRequest();
+            return NotFound();
         }
 
 
