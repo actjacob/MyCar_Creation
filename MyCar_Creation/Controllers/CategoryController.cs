@@ -88,10 +88,13 @@ namespace MyCar_Creation.Controllers
             return BadRequest();
         
         }
+
+
         [HttpGet("{categoryId}")]
-        public ActionResult GetCategoryById([FromRoute] string categoryId)
+        public ActionResult GetCategoryById([FromRoute] Guid categoryId)
         {
-            var result = _context.Categories.FirstOrDefault(x=>x.Id == Guid.Parse(categoryId) );
+            var result = _context.Categories.Find(categoryId);
+
             if (result is not null)
             {
 
